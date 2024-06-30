@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Js pour les pros</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- intégration de vue js par le cdn -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+<body>
+
+    <div id="app" class="container">
+        <div class="row p-3">
+            <div class="col-12">
+                <div class="card p-0">
+                    <div class="card-body">
+                        <p>Salut {{author}}</p>
+                        <div v-if="isConnected">
+                            <p> Age : {{age}}</p>
+                            <p v-show="age>=25"> Biographie : {{bio}}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer w-100">
+                        <button v-if="isConnected" @click="augmenterAge" type="button">Augmenter l'age</button>
+                        <button v-if="isConnected" @click="diminuerAge" type="button">Diminuer l'age</button>
+                        <button @click="connexion" type="button"> {{btnLibelle}} </button>
+                    </div>
+                </div>
+            </div>
+            <!-- la liste de tout les amies -->
+            <div v-if="isConnected" class="col-12">
+                <div class="row m-3">
+                    <!-- les amies active -->
+                    <div class="col-12 ">
+                        <div class="border border-3 border-success p-2">
+                            <div class="row">
+
+                                <div  v-for="(frind, i) in frinds" :key="i" class="col-3 mb-3">
+                                    <div>
+                                        <div class="bg-dark-subtle p-3 w-100">
+                                            <p class="">Name : {{frind.name}} </p>
+                                            <a class="btn btn-link" :href="frind.link">Lien site</a>
+                                            <img :src="frind.image" class="w-100" alt="image">
+                                        </div>
+                                        <button v-on:click="definirEtat(i)" v-bind:class="frind.classvalue">{{frind.btnTxt}}</button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div> 
+
+        <div class="row bg-dark text-center text-white fs-2" style="height:550px;">
+            <div class="col-4  w-50 p-3">
+                <div @mouseover="mouseOver" class="h-100 mx-auto py-5 border border-2 border-info">Mouse Hover <br>
+                Action : {{mouseover}}
+                </div>
+            </div>
+            <div class="col-4  w-50 p-3">
+                <div @mouseleave="mouseLeave" class="h-100 mx-auto py-5 border border-2 border-info">Mouse Leave <br>
+                    Action : {{mouseleave}}</div>
+            </div>
+            <div class="col-4  w-50 p-3">
+                <div @dblclick="dblClick" class="h-100 mx-auto py-5 border border-2 border-info">Mouse Double Click <br>
+                    Action : {{dblclick}}</div>
+            </div>
+            <div class="col-4  w-50 p-3">
+                <div @mousemove="deplacement" class="h-100 mx-auto py-5 border border-2 border-info">
+                    Mouse position on live <br>
+                    Action : {{mousemove}}
+                    <span class="d-block">position X : {{x}} </span>
+                    <span class="d-block">position Y : {{y}} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <script src="js/app.js"></script>
+</body>
+</html>
